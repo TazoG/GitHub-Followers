@@ -14,8 +14,8 @@ enum ItemInfoType {
 class GFItemInfoView: UIView {
 
     let symbolImageView = UIImageView()
-    let titleLabel = GFTitleLabel(textAlignment: .left, fontSire: 14)
-    let countLabel = GFTitleLabel(textAlignment: .center, fontSire: 14)
+    let titleLabel = GFTitleLabel(textAlignment: .left, fontSize: 14)
+    let countLabel = GFTitleLabel(textAlignment: .center, fontSize: 14)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
