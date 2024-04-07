@@ -11,7 +11,7 @@ protocol FollowerListVCDelegate: AnyObject {
     func didRequestFollowers(for username: String)
 }
 
-class FollowerListVC: UIViewController {
+class FollowerListVC: GFDataLoadingVC {
 
     enum Section { case main }
 
@@ -99,7 +99,7 @@ class FollowerListVC: UIViewController {
     }
 
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseId, for: indexPath) as! FollowerCell
             cell.set(follower: follower)
             return cell
@@ -108,7 +108,7 @@ class FollowerListVC: UIViewController {
 
     func updateData(on followers: [Follower]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
-        snapshot.appendSections([Section.main])
+        snapshot.appendSections([.main])
         snapshot.appendItems(followers)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
